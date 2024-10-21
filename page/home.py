@@ -27,7 +27,7 @@ def home():
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: #e0e0e0;
-            margin-top: 20px;
+            margin: 0;
             padding:0;
         }}
         
