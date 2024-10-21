@@ -13,7 +13,7 @@ st.markdown("""
         <style>
             @media (max-width: 768px) {
                 .block-container {
-                    padding: 1rem 2rem 0rem 2rem;
+                    padding: 10rem 2rem 0rem 2rem;
                 }
                 .css-1d391kg, .css-18e3th9 {
                     font-size: 14px; /* Adjust font sizes for mobile */
@@ -21,7 +21,7 @@ st.markdown("""
             }
             @media (min-width: 768px) {
                 .block-container {
-                    padding: 10rem 5rem 0rem 5rem;
+                    padding: 4rem 5rem 0rem 5rem;
                 }
             }
         </style>
