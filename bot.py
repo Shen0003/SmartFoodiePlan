@@ -21,8 +21,19 @@ def genRecipeBot(inputType, input):
         )
         response = model.generate_content(f"What are the recipe of {input}")
     elif inputType == "Image" or inputType == "Camera":
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(["What are the recipe", input])
+        model = genai.GenerativeModel(
+            "gemini-1.5-pro",
+            system_instruction=f"""
+                You are a professional chef, help the user to generate the recipe in the format of:
+                The <Food> Recipe
+                Ingredients: <Ingredients>
+                Instructions: <Step by step Instructions>
+                Tips: <Tips>
+
+                Enjoy your delicious <Food>!
+            """
+        )
+        response = model.generate_content(["What are the approximate recipe of ", input])
 
     st.write(response.text)
 
