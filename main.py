@@ -31,7 +31,7 @@ st.markdown("""
 with st.sidebar:
     menu = option_menu(
         menu_title="Main Menu",
-        options=["Home", "Generate Recipe", "Check Nutrition and Potential Allergies", "Cut Weight"],
+        options=["Home", "Generate Recipe", "Check Nutrition and Allergies", "Cut Weight"],
         default_index=0
     )
     inputType = st.radio("Choose your input type: ",["Text","Image","Camera"])
@@ -42,5 +42,7 @@ if menu == "Home":
     home()
 elif menu == "Generate Recipe":
     recipe(inputType)
-elif menu == "Check Nutrition and Potential Allergies":
+elif menu == "Check Nutrition and Allergies":
     check(inputType)
+elif menu == "Cut Weight":
+    st.write("PAISEH, UNDER DEVELOPING. GO FUCK YOURSELF.")
