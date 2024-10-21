@@ -11,7 +11,7 @@ from bot import checkFoodBot
 def graph(json_input):
     # Data preparation
     foodInfo = json.loads(json_input)
-    #st.write(foodInfo) ## For debugging purposes
+    # st.write(foodInfo) ## For debugging purposes
 
     macro_data = pd.DataFrame({
         'Nutrient': foodInfo['macronutrient'],
@@ -36,11 +36,15 @@ def graph(json_input):
     st.title(f"{foodInfo['food']} Nutritional Information (per 100g)")
 
     # 1. Calories Taken
-    st.subheader("1. Calories: ")
-    st.subheader(foodInfo['calorie'])
+    st.write('### 1. Calories: ',str(foodInfo['calorie']),'cal')
+
+    st.subheader("2. Potential Allergies")
+    df = pd.DataFrame({"Allergies Types:": foodInfo['allergy']})
+    df.index = range(1, len(df)+1)
+    st.write(df)
 
     # 2. Horizontal bar chart for macronutrients
-    st.subheader("2. Macronutrients")
+    st.subheader("3. Macronutrients")
     macro_chart = alt.Chart(macro_data).mark_bar().encode(
         y=alt.Y('Nutrient:N', sort='-x'),
         x=alt.X('Amount:Q'),
@@ -52,7 +56,7 @@ def graph(json_input):
     st.altair_chart(macro_chart)
 
     # 3. Lollipop chart for vitamins
-    st.subheader("3. Vitamins")
+    st.subheader("4. Vitamins")
     vitamins_chart = alt.Chart(vitamins_data).mark_bar().encode(
         y=alt.Y('Vitamin:N', sort='-x'),
         x=alt.X('Amount:Q'),
@@ -64,7 +68,7 @@ def graph(json_input):
     st.altair_chart(vitamins_chart)
 
     # 4. Bar chart for minerals
-    st.subheader("4. Minerals")
+    st.subheader("5. Minerals")
     minerals_chart = alt.Chart(minerals_data).mark_bar().encode(
         y=alt.Y('Mineral:N', sort='-x'),
         x=alt.X('Amount:Q'),
@@ -75,17 +79,14 @@ def graph(json_input):
     )
     st.altair_chart(minerals_chart)
 
+def check(inputType):
+    # st.markdown("<h1 style='text-align: center; margin-bottom: 0px; padding-bottom: 0px;'>Select Input Types</h1>", unsafe_allow_html=True)
 
-
-
-def check():
-    st.markdown("<h1 style='text-align: center; margin-bottom: 0px; padding-bottom: 0px;'>Select Input Types</h1>", unsafe_allow_html=True)
-
-    # Create a layout with columns for centering the content
-    col1, col2, col3 = st.columns([2.3, 2, 1])  # The center column is wider
-    with col2:
-        inputType = st.radio("", options=["Text", "Image", "Camera"], index=0)
-
+    # # Create a layout with columns for centering the content
+    # col1, col2, col3 = st.columns([2.3, 2, 1])  # The center column is wider
+    # with col2:
+    #     inputType = st.radio("", options=["Text", "Image", "Camera"], index=0)
+    ################################################################################
     # Initialize a variable to store the input
     user_input = None
 
@@ -118,6 +119,7 @@ def check():
                 graph(json_input)
         else:
             st.write("No input provided.")
+    
 
 
 

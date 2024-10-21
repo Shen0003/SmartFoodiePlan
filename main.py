@@ -31,14 +31,16 @@ st.markdown("""
 with st.sidebar:
     menu = option_menu(
         menu_title="Main Menu",
-        options=["Home", "Generate Recipe", "Check Nutrition", "Cut Weight"],
+        options=["Home", "Generate Recipe", "Check Nutrition and Potential Allergies", "Cut Weight"],
         default_index=0
     )
+    inputType = st.radio("Choose your input type: ",["Text","Image","Camera"])
+
 
 # Main page content based on selected menu
 if menu == "Home":
     home()
 elif menu == "Generate Recipe":
-    recipe()
-elif menu == "Check Nutrition":
-    check()
+    recipe(inputType)
+elif menu == "Check Nutrition and Potential Allergies":
+    check(inputType)

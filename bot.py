@@ -53,13 +53,14 @@ def checkFoodBot(inputType, input):
     "ml_amount": [],
     "ml_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
     "calorie": <Calorie>
+    "allergy": [<all potential Allergies list>]
 }
     """
     if inputType == "Text":
         model = genai.GenerativeModel(
             "gemini-1.5-flash",
             system_instruction=f"""
-            You are a professional food nutritionist. Help the user check the nutrition of foods per serving size of 100g.
+            You are a professional food nutritionist. Help the user check the nutrition and potential allergies of foods per serving size of 100g.
             Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
             Do not include any text before or after the JSON object.
@@ -70,7 +71,7 @@ def checkFoodBot(inputType, input):
         model = genai.GenerativeModel(
             "gemini-1.5-pro",
             system_instruction=f"""
-            You are a professional food nutritionist. Help the user check the nutrition of foods per serving size of 100g.
+            You are a professional food nutritionist. Help the user to check the nutrition and potential allergies of that foods per serving size of 100g.
             Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
             Do not include any text before or after the JSON object.
