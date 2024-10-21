@@ -21,7 +21,7 @@ st.markdown("""
             }
             @media (min-width: 768px) {
                 .block-container {
-                    padding: 4rem 5rem 0rem 5rem;
+                    padding: 10rem 5rem 0rem 5rem;
                 }
             }
         </style>
