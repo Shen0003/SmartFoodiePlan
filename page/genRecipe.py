@@ -5,6 +5,7 @@ from io import BytesIO
 from bot import genRecipeBot
 
 def recipe():
+    st.divider()
     st.markdown("<h1 style='text-align: center; margin-bottom: 0px; padding-bottom: 0px;'>Select Input Types</h1>", unsafe_allow_html=True)
 
     # Create a layout with columns for centering the content

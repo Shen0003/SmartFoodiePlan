@@ -3,7 +3,7 @@ from streamlit_option_menu import option_menu
 
 from page.home import home
 from page.genRecipe import recipe
-from page.checkRecipe import check1
+from page.checkNutrition import check
 
 # Set page configuration
 st.set_page_config(page_title="Smart Foodie Planner", layout="wide")
@@ -31,7 +31,7 @@ st.markdown("""
 with st.sidebar:
     menu = option_menu(
         menu_title="Main Menu",
-        options=["Home", "Generate Recipe", "Check Recipe", "Cut Weight"],
+        options=["Home", "Generate Recipe", "Check Nutrition", "Cut Weight"],
         default_index=0
     )
 
@@ -40,5 +40,5 @@ if menu == "Home":
     home()
 elif menu == "Generate Recipe":
     recipe()
-elif menu == "Check Recipe":
-    check1()
+elif menu == "Check Nutrition":
+    check()
