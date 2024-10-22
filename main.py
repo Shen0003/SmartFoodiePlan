@@ -4,6 +4,7 @@ from streamlit_option_menu import option_menu
 from page.home import home
 from page.genRecipe import recipe
 from page.checkNutrition import check
+from page.weightLoss import cut
 
 # Set page configuration
 st.set_page_config(page_title="Smart Foodie Planner", layout="wide")
@@ -45,4 +46,4 @@ elif menu == "Generate Recipe":
 elif menu == "Check Nutrition and Allergies":
     check(inputType)
 elif menu == "Cut Weight":
-    st.write("PAISEH, UNDER DEVELOPING. GO FUCK YOURSELF.")
+    cut()

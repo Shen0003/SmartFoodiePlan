@@ -79,3 +79,23 @@ def checkFoodBot(inputType, input):
         ) # **THE SYSTEM INSTRUCTION IS IMPORTANT TO GET A CORRECT JSON FORMAT!
         response = model.generate_content(["What are the nutrition of", input])
     return(response.text)
+
+# weightLoss.py
+def weightLossSuggestionBot(age, gender, weight, height, occupation, question=None):
+    # Initialize the generative model
+    model = genai.GenerativeModel(
+        "gemini-1.5-flash",
+        system_instruction=f"""
+        You are a professional weight loss consultant. Your task if seperated into 2 types, please do not use copyrighted contents. If question is None, you need to ONLY calculate BMI and list suitable methods for the user to lose weight 
+        based on their gender, age, current weight, current height, and occupation. Else if question is Exist, you ONLY need to answer the user's questions about the suggested methods. 
+        """
+    )
+    
+    # If it's the first interaction, provide the weight loss methods
+    if question is None:
+        response = model.generate_content([f"question is None: Hello, I am a {gender}, my age is {age}, my current weight is {weight}, my current height is {height}, and my occupation is {occupation}. Please suggest weight loss methods for me."])
+    else:
+        # If there's a follow-up question, generate a response based on it
+        response = model.generate_content([f"question is Exist: A user who is a {gender}, aged {age}, with weight {weight}kg and height {height}cm, who works as a {occupation}, asked: '{question}'. Provide detailed information based on the previous suggestions you made."])
+
+    return response.text
