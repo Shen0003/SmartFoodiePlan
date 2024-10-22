@@ -61,7 +61,7 @@ def checkFoodBot(inputType, input):
             "gemini-1.5-flash",
             system_instruction=f"""
             You are a professional food nutritionist. Help the user check the nutrition and potential allergies of foods per serving size of 100g.
-            Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
+            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
             Do not include any text before or after the JSON object.
             """
@@ -72,7 +72,7 @@ def checkFoodBot(inputType, input):
             "gemini-1.5-pro",
             system_instruction=f"""
             You are a professional food nutritionist. Help the user to check the nutrition and potential allergies of that foods per serving size of 100g.
-            Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
+            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
             Do not include any text before or after the JSON object.
             """
@@ -86,7 +86,7 @@ def weightLossSuggestionBot(age, gender, weight, height, occupation, question=No
     model = genai.GenerativeModel(
         "gemini-1.5-flash",
         system_instruction=f"""
-        You are a professional weight loss consultant. Your task if seperated into 2 types, please do not use copyrighted contents. If question is None, you need to ONLY calculate BMI and list suitable methods for the user to lose weight 
+        You are a professional weight loss consultant. Your task if seperated into 2 types, please do not use any copyrighted contents. If question is None, you need to ONLY calculate BMI and list suitable methods for the user to lose weight 
         based on their gender, age, current weight, current height, and occupation. Else if question is Exist, you ONLY need to answer the user's questions about the suggested methods. 
         """
     )

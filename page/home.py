@@ -159,26 +159,25 @@ def home():
                 <p class="feature-description">Generate creative and delicious recipe ideas tailored to your preferences and dietary needs.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-title">🚫 Allergy Checker</div>
-                <p class="feature-description">Easily check ingredients for potential allergens to ensure safe meal planning.</p>
-            </div>
-            <div class="feature-card">
                 <div class="feature-title">📊 Nutritional Analysis</div>
-                <p class="feature-description">Get detailed information on the 7 basic nutrition classes for each recipe.</p>
+                <p class="feature-description">Get detailed information on the 7 basic nutrition classes and calories taken for each meals.</p>
+            </div>            
+            <div class="feature-card">
+                <div class="feature-title">🚫 Allergy Checker</div>
+                <p class="feature-description">Easily check the food for potential allergens to ensure safe meal planning.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-title">📉 Weight Progress Tracker</div>
-                <p class="feature-description">Monitor your weight loss journey with our intuitive tracking tool.</p>
+                <div class="feature-title">📉 Weight Loss Suggestion</div>
+                <p class="feature-description">Get suggestion of your weight loss journey with our personal assistant chatbot.</p>
             </div>
         </div>
         
         <div class="get-started">
-            <h2>🚀 Get Started</h2>
+            <h2>🚀 Get Started with the Left Sidebar Main Menu</h2>
             <ol>
-                <li><strong>Generate Recipes:</strong> Click on the "Recipe Generator" tab to start creating custom meal ideas.</li>
-                <li><strong>Check Allergies:</strong> Use the "Allergy Checker" to ensure your meals are safe for you and your family.</li>
-                <li><strong>Analyze Nutrition:</strong> Explore the "Nutritional Analysis" section to understand the health benefits of your meals.</li>
-                <li><strong>Track Progress:</strong> Visit the "Weight Tracker" to log your progress and stay motivated.</li>
+                <li><strong>Generate Recipes:</strong> Click on this options to generate your recipe based on your text descriptions or images.</li>
+                <li><strong>Check Nutritions and Allergies:</strong> Click on this options to ensure your meals meet the diet requirements and safe for you and your family.</li>
+                <li><strong>Cut Weight:</strong> Click on this options to get your personalized recommendation of losing weight and clear your doubts using the chatbot.</li>
             </ol>
         </div>
         
