@@ -91,11 +91,11 @@ def check(inputType):
     user_input = None
 
     if inputType == "Text":
-        user_input = st.text_input(label="Text input:")
+        user_input = st.text_input(label="Describe the food:")
     elif inputType == "Image":
-        user_input = st.file_uploader(label="Upload an image:", type=["png", "jpg", "jpeg"])
+        user_input = st.file_uploader(label="Upload an image of the food:", type=["png", "jpg", "jpeg"])
     elif inputType == "Camera":
-        user_input = st.camera_input(label="Take a picture:")
+        user_input = st.camera_input(label="Take a picture of the food:")
 
     # Create a submit button
     if st.button(label="Check"):
