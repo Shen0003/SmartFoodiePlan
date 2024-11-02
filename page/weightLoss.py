@@ -1,13 +1,14 @@
 import streamlit as st
 from bot import weightLossSuggestionBot
 
-# Initialize session state for chat history and weight loss methods
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
-if 'methods' not in st.session_state:
-    st.session_state.methods = ""
+
 
 def cut():
+    # Initialize session state for chat history and weight loss methods
+    if 'messages' not in st.session_state:
+        st.session_state.messages = []
+    if 'methods' not in st.session_state:
+        st.session_state.methods = ""
     with st.expander(label="Enter your body information here"):
         st.title("Body Information")
         gender = st.text_input(label="Choose Your Gender: ")
