@@ -26,4 +26,4 @@ Nowdays, there are not many people who are busy working from day and night goes 
 - Develop the function to allow the user to save the output.
 - Design a more interactive UI/UX.
 
-## Make sure to try it out by clicking "Open in Streamlit" besides the title! Thanks for your time.
+## Make sure to try it out by clicking "Open in Streamlit" besides the title or the link in the About section! Thanks for your time.
