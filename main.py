@@ -7,7 +7,7 @@ from page.checkNutrition import check
 from page.weightLoss import cut
 
 # Set page configuration
-st.set_page_config(page_title="Smart Foodie Planner", layout="wide")
+st.set_page_config(page_title="Stupid Foodie Planner", layout="wide")
 
 # Custom CSS to adjust padding and font sizes
 st.markdown("""
