@@ -40,21 +40,21 @@ def genRecipeBot(inputType, input):
 # checkRecipe.py
 def checkFoodBot(inputType, input):
     jsonFormat = """
-{
-    "food": <Food>,
-    "serving_size": "100g",
-    "macronutrient": ["Carbohydrates","Proteins","Fats","Fiber","Water"],
-    "mn_amount": [],
-    "mn_unit": ["g","g","g","g","g"],
-    "vitamin": ["A", "C", "B1", "B2", "B3", "B6", "B12", "E", "K", "Folate"],
-    "vt_amount": [],
-    "vt_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
-    "mineral": ["Calcium", "Iron", "Magnesium", "Phosphorus", "Potassium", "Sodium", "Zinc", "Copper", "Manganese", "Selenium"],
-    "ml_amount": [],
-    "ml_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
-    "calorie": <Calorie>
-    "allergy": [<all potential Allergies list>]
-}
+    {
+        "food": "string",
+        "serving_size": "100g",
+        "macronutrient": ["Carbohydrates", "Proteins", "Fats", "Fiber", "Water"],
+        "mn_amount": ["float"],
+        "mn_unit": ["string"],
+        "vitamin": ["string"],
+        "vt_amount": ["float"],
+        "vt_unit": ["string"],
+        "mineral": ["string"],
+        "ml_amount": ["float"],
+        "ml_unit": ["string"],
+        "calorie": "float",
+        "allergy": ["string"]
+    }
     """
     if inputType == "Text":
         model = genai.GenerativeModel(
