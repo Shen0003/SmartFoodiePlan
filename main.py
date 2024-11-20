@@ -7,7 +7,7 @@ from page.checkNutrition import check
 from page.weightLoss import cut
 
 # Set page configuration
-st.set_page_config(page_title="Stupid Foodie Planner", layout="wide")
+st.set_page_config(page_title="Smart Foodie Planner", layout="wide")
 
 # Custom CSS to adjust padding and font sizes
 st.markdown("""
@@ -31,7 +31,7 @@ st.markdown("""
 # Sidebar with options
 with st.sidebar:
     menu = option_menu(
-        menu_title="Main Menu",
+        menu_title="Dog Menu",
         options=["Home", "Generate Recipe", "Check Nutrition and Allergies", "Cut Weight"],
         default_index=0
     )
