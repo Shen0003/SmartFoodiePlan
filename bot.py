@@ -61,7 +61,7 @@ def checkFoodBot(inputType, input):
             "gemini-1.5-flash",
             system_instruction=f"""
             You are a professional food nutritionist. Help the user check the nutrition and potential allergies of foods per serving size of 100g.
-            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
+            Please do not use any copyrighted material and contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
             Do not include any text before or after the JSON object.
             """
@@ -72,7 +72,7 @@ def checkFoodBot(inputType, input):
             "gemini-1.5-pro",
             system_instruction=f"""
             You are a professional food nutritionist. Help the user to check the nutrition and potential allergies of that foods per serving size of 100g.
-            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
+            Please do not use any copyrighted material and contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
             Do not include any text before or after the JSON object.
             """
