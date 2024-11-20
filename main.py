@@ -31,7 +31,7 @@ st.markdown("""
 # Sidebar with options
 with st.sidebar:
     menu = option_menu(
-        menu_title="Dog Menu",
+        menu_title="Main Menu",
         options=["Home", "Generate Recipe", "Check Nutrition and Allergies", "Cut Weight"],
         default_index=0
     )
