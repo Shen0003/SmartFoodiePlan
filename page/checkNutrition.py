@@ -11,7 +11,7 @@ from bot import checkFoodBot
 def graph(json_input):
     # Data preparation
     foodInfo = json.loads(json_input)
-    # st.write(foodInfo) ## For debugging purposes
+    st.write(foodInfo) ## For debugging purposes
 
     macro_data = pd.DataFrame({
         'Nutrient': foodInfo['macronutrient'],
