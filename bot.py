@@ -40,29 +40,30 @@ def genRecipeBot(inputType, input):
 # checkRecipe.py
 def checkFoodBot(inputType, input):
     jsonFormat = """
-    {
-        "food": "string",
-        "serving_size": "100g",
-        "macronutrient": ["Carbohydrates", "Proteins", "Fats", "Fiber", "Water"],
-        "mn_amount": ["float"],
-        "mn_unit": ["string"],
-        "vitamin": ["string"],
-        "vt_amount": ["float"],
-        "vt_unit": ["string"],
-        "mineral": ["string"],
-        "ml_amount": ["float"],
-        "ml_unit": ["string"],
-        "calorie": "float",
-        "allergy": ["string"]
-    }
+{
+    "food": <Food>,
+    "serving_size": "100g",
+    "macronutrient": ["Carbohydrates","Proteins","Fats","Fiber","Water"],
+    "mn_amount": [],
+    "mn_unit": ["g","g","g","g","g"],
+    "vitamin": ["A", "C", "B1", "B2", "B3", "B6", "B12", "E", "K", "Folate"],
+    "vt_amount": [],
+    "vt_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
+    "mineral": ["Calcium", "Iron", "Magnesium", "Phosphorus", "Potassium", "Sodium", "Zinc", "Copper", "Manganese", "Selenium"],
+    "ml_amount": [],
+    "ml_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
+    "calorie": <Calorie>
+    "allergy": [<all potential Allergies list>]
+}
     """
     if inputType == "Text":
         model = genai.GenerativeModel(
             "gemini-1.5-flash",
             system_instruction=f"""
             You are a professional food nutritionist. Help the user check the nutrition and potential allergies of foods per serving size of 100g.
-            Please do not use any copyrighted material and contents. Respond ONLY with a valid JSON format.
-            Do not include any text before or after the JSON format.
+            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
+            {jsonFormat}
+            Do not include any text before or after the JSON object.
             """
         ) # **THE SYSTEM INSTRUCTION IS IMPORTANT TO GET A CORRECT JSON FORMAT!
         response = model.generate_content(f"What are the nutrition of {input}")
@@ -71,13 +72,14 @@ def checkFoodBot(inputType, input):
             "gemini-1.5-pro",
             system_instruction=f"""
             You are a professional food nutritionist. Help the user to check the nutrition and potential allergies of that foods per serving size of 100g.
-            Please do not use any copyrighted material and contents. Respond ONLY with a valid JSON format in the following format, replacing placeholders with appropriate values:
+            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
             {jsonFormat}
-            Do not include any text before or after the JSON format.
+            Do not include any text before or after the JSON object.
             """
         ) # **THE SYSTEM INSTRUCTION IS IMPORTANT TO GET A CORRECT JSON FORMAT!
         response = model.generate_content(["What are the nutrition of", input])
     return(response.text)
+
 
 # weightLoss.py
 def weightLossSuggestionBot(age, gender, weight, height, occupation, question=None):
