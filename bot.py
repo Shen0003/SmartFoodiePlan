@@ -86,7 +86,7 @@ def checkFoodBot(inputType, input):
             response = model.generate_content(f"Provide nutritional information for {input}")
         elif inputType == "Image" or inputType == "Camera":
             model = genai.GenerativeModel(
-                "gemini-1.5-pro",
+                "gemini-2.0-flash",
                 system_instruction=system_instruction
             )
             response = model.generate_content(["Provide nutritional information for this food", input])
