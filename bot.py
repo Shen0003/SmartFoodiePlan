@@ -10,7 +10,7 @@ genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 def genRecipeBot(inputType, input):
     if inputType == "Text":
         model = genai.GenerativeModel(
-            "gemini-1.5-flash",
+            "gemini-2.0-flash",
             system_instruction=f"""
                 You are a professional chef, help the user to generate the recipe in the format of:
                 The <Food> Recipe
@@ -24,7 +24,7 @@ def genRecipeBot(inputType, input):
         response = model.generate_content(f"What are the recipe of {input}")
     elif inputType == "Image" or inputType == "Camera":
         model = genai.GenerativeModel(
-            "gemini-1.5-pro",
+            "gemini-2.0-flash",
             system_instruction=f"""
                 You are a professional chef, help the user to generate the recipe in the format of:
                 The <Food> Recipe
@@ -80,7 +80,7 @@ def checkFoodBot(inputType, input):
     try:
         if inputType == "Text":
             model = genai.GenerativeModel(
-                "gemini-1.5-flash",
+                "gemini-2.0-flash",
                 system_instruction=system_instruction
             )
             response = model.generate_content(f"Provide nutritional information for {input}")
@@ -140,7 +140,7 @@ def create_default_nutrition_json(food_name):
 def weightLossSuggestionBot(age, gender, weight, height, occupation, question=None):
     # Initialize the generative model
     model = genai.GenerativeModel(
-        "gemini-1.5-flash",
+        "gemini-2.0-flash",
         system_instruction=f"""
         You are a professional weight loss consultant. Your task if seperated into 2 types, please do not use any copyrighted contents. If question is None, you need to ONLY calculate BMI and list suitable methods for the user to lose weight 
         based on their gender, age, current weight, current height, and occupation. Else if question is Exist, you ONLY need to answer the user's questions about the suggested methods. 
