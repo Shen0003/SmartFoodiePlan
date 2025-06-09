@@ -1,6 +1,8 @@
 import streamlit as st
 import google.generativeai as genai
 import os
+import json
+import re
 
 genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 
@@ -41,45 +43,98 @@ def genRecipeBot(inputType, input):
 def checkFoodBot(inputType, input):
     jsonFormat = """
 {
-    "food": <Food>,
+    "food": "<Food>",
     "serving_size": "100g",
     "macronutrient": ["Carbohydrates","Proteins","Fats","Fiber","Water"],
-    "mn_amount": [],
+    "mn_amount": [0,0,0,0,0],
     "mn_unit": ["g","g","g","g","g"],
     "vitamin": ["A", "C", "B1", "B2", "B3", "B6", "B12", "E", "K", "Folate"],
-    "vt_amount": [],
+    "vt_amount": [0,0,0,0,0,0,0,0,0,0],
     "vt_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
     "mineral": ["Calcium", "Iron", "Magnesium", "Phosphorus", "Potassium", "Sodium", "Zinc", "Copper", "Manganese", "Selenium"],
-    "ml_amount": [],
+    "ml_amount": [0,0,0,0,0,0,0,0,0,0],
     "ml_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
-    "calorie": <Calorie>
-    "allergy": [<all potential Allergies list>]
+    "calorie": 0,
+    "allergy": ["None"]
 }
     """
-    if inputType == "Text":
-        model = genai.GenerativeModel(
-            "gemini-1.5-flash",
-            system_instruction=f"""
-            You are a professional food nutritionist. Help the user check the nutrition and potential allergies of foods per serving size of 100g.
-            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
-            {jsonFormat}
-            Do not include any text before or after the JSON object.
-            """
-        ) # **THE SYSTEM INSTRUCTION IS IMPORTANT TO GET A CORRECT JSON FORMAT!
-        response = model.generate_content(f"What are the nutrition of {input}")
-    elif inputType == "Image" or inputType == "Camera":
-        model = genai.GenerativeModel(
-            "gemini-1.5-pro",
-            system_instruction=f"""
-            You are a professional food nutritionist. Help the user to check the nutrition and potential allergies of that foods per serving size of 100g.
-            Please do not use any copyrighted contents. Respond ONLY with a JSON object in the following format, replacing placeholders with appropriate values:
-            {jsonFormat}
-            Do not include any text before or after the JSON object.
-            """
-        ) # **THE SYSTEM INSTRUCTION IS IMPORTANT TO GET A CORRECT JSON FORMAT!
-        response = model.generate_content(["What are the nutrition of", input])
-    return(response.text)
+    
+    system_instruction = f"""
+    You are a professional food nutritionist. Help the user check the nutrition and potential allergies of foods per serving size of 100g.
+    
+    CRITICAL: You MUST respond with ONLY a valid JSON object. No explanations, no markdown formatting, no code blocks, no additional text.
+    
+    Use this exact format, replacing values with actual nutritional data:
+    {jsonFormat}
+    
+    Rules:
+    - Replace all placeholder values with actual numbers
+    - Use actual food name for "food" field
+    - All amounts must be numbers (not strings)
+    - If a nutrient is not present, use 0
+    - For allergies, list actual potential allergens or ["None"] if no common allergens
+    - Do not include any text before or after the JSON
+    - Do not use markdown code blocks or backticks
+    """
+    
+    try:
+        if inputType == "Text":
+            model = genai.GenerativeModel(
+                "gemini-1.5-flash",
+                system_instruction=system_instruction
+            )
+            response = model.generate_content(f"Provide nutritional information for {input}")
+        elif inputType == "Image" or inputType == "Camera":
+            model = genai.GenerativeModel(
+                "gemini-1.5-pro",
+                system_instruction=system_instruction
+            )
+            response = model.generate_content(["Provide nutritional information for this food", input])
+        
+        # Clean the response text
+        response_text = response.text.strip()
+        
+        # Remove any markdown code blocks if present
+        if response_text.startswith('```'):
+            response_text = re.sub(r'^```.*?\n', '', response_text)
+            response_text = re.sub(r'\n```$', '', response_text)
+        
+        # Try to extract JSON if there's extra text
+        json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+        if json_match:
+            response_text = json_match.group()
+        
+        # Validate JSON before returning
+        try:
+            json.loads(response_text)
+            return response_text
+        except json.JSONDecodeError:
+            # If still invalid, return a default structure
+            st.error("API returned invalid JSON. Using default nutritional template.")
+            return create_default_nutrition_json(input if inputType == "Text" else "Unknown Food")
+            
+    except Exception as e:
+        st.error(f"Error calling API: {str(e)}")
+        return create_default_nutrition_json(input if inputType == "Text" else "Unknown Food")
 
+def create_default_nutrition_json(food_name):
+    """Create a default nutrition JSON structure when API fails"""
+    default_data = {
+        "food": food_name,
+        "serving_size": "100g",
+        "macronutrient": ["Carbohydrates","Proteins","Fats","Fiber","Water"],
+        "mn_amount": [0, 0, 0, 0, 0],
+        "mn_unit": ["g","g","g","g","g"],
+        "vitamin": ["A", "C", "B1", "B2", "B3", "B6", "B12", "E", "K", "Folate"],
+        "vt_amount": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "vt_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
+        "mineral": ["Calcium", "Iron", "Magnesium", "Phosphorus", "Potassium", "Sodium", "Zinc", "Copper", "Manganese", "Selenium"],
+        "ml_amount": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "ml_unit": ["mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg"],
+        "calorie": 0,
+        "allergy": ["Data unavailable - please consult a nutritionist"]
+    }
+    return json.dumps(default_data)
 
 # weightLoss.py
 def weightLossSuggestionBot(age, gender, weight, height, occupation, question=None):
