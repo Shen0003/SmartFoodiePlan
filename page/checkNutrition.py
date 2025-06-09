@@ -139,7 +139,7 @@ def check(inputType):
         if user_input is not None:
             try:
                 if inputType == "Text":
-                    with st.spinner("Analyzing nutrition..."):
+                    with st.spinner("Analyzing nutrition and Finding possible allergen..."):
                         json_input = checkFoodBot(inputType=inputType, input=user_input)
                         if json_input:
                             graph(json_input)
