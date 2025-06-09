@@ -11,7 +11,7 @@ def graph(json_input):
     try:
         # Data preparation
         foodInfo = json.loads(json_input)
-        st.write("Debug - Raw API Response:", foodInfo) ## For debugging purposes
+        # st.write("Debug - Raw API Response:", foodInfo) ## For debugging purposes
 
         # Validate required fields
         required_fields = ['food', 'calorie', 'allergy', 'macronutrient', 'mn_amount', 
