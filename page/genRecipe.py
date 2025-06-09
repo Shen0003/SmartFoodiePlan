@@ -26,19 +26,29 @@ def recipe(inputType):
     if st.button(label="Generate"):
         if user_input is not None:
             st.divider()
-            if inputType == "Text":
-                genRecipeBot(inputType=inputType, input=user_input)
+            try:
+                if inputType == "Text":
+                    with st.spinner("Analyzing food and generating recipe..."):
+                        genRecipeBot(inputType=inputType, input=user_input)
 
-            elif inputType == "Image":
-                # Open the uploaded image
-                image = PIL.Image.open(user_input)
-                st.image(image, caption='Uploaded Image', use_column_width=True)
-                genRecipeBot(inputType=inputType, input=image)
+                elif inputType == "Image":
+                    # Open the uploaded image
+                    image = PIL.Image.open(user_input)
+                    st.image(image, caption='Uploaded Image', use_column_width=True)
+                    
+                    with st.spinner("Analyzing image and generating recipe..."):
+                        genRecipeBot(inputType=inputType, input=image)
 
-            elif inputType == "Camera":
-                # Save the camera input to a file-like object and treat it as an uploaded file
-                image = PIL.Image.open(BytesIO(user_input.getvalue()))  # Convert to an image object
-                st.image(image, caption='Captured Image', use_column_width=True)
-                genRecipeBot(inputType="Image", input=image)  # Treat the camera capture as an uploaded image
+                elif inputType == "Camera":
+                    # Save the camera input to a file-like object and treat it as an uploaded file
+                    image = PIL.Image.open(BytesIO(user_input.getvalue()))  # Convert to an image object
+                    st.image(image, caption='Captured Image', use_column_width=True)
+                    
+                    with st.spinner("Analyzing captured image and generating recipe..."):
+                        genRecipeBot(inputType="Image", input=image)  # Treat the camera capture as an uploaded image
+                        
+            except Exception as e:
+                st.error(f"An error occurred while generating the recipe: {str(e)}")
+                st.error("Please try again or contact support if the problem persists.")
         else:
-            st.write("No input provided.")
+            st.warning("Please provide input before clicking Generate.")
